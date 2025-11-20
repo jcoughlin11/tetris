@@ -62,7 +62,18 @@ void Game::_events_handle(void) {
 // ===========================================
 //                  _update
 // ===========================================
-void Game::_update(void) {}
+void Game::_update(void) {
+  // Move piece
+  // Bool array indexed by scancodes. true if pressed, false if not
+  const bool *keyStates{SDL_GetKeyboardState(NULL)};
+  if (keyStates[SDL_SCANCODE_A]) {
+    // Move piece left
+  }
+  // Apply gravity
+  // Lock piece
+  // Spawn piece
+  // Clear rows
+}
 
 // ===========================================
 //                  _render
