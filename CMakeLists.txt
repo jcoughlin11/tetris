@@ -42,6 +42,7 @@ set(
     TETRIS_SOURCES
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/game.cpp
+    ${CMAKE_SOURCE_DIR}/src/tetris.cpp
 )
 
 target_sources(

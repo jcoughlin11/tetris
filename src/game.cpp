@@ -1,7 +1,9 @@
+#include <cstdint>
 #include <stdexcept>
 
 #include <SDL3/SDL.h>
 
+#include "SDL3/SDL_render.h"
 #include "game.hpp"
 #include "states.hpp"
 
@@ -66,19 +68,40 @@ void Game::_update(void) {
   // Move piece
   // Bool array indexed by scancodes. true if pressed, false if not
   const bool *keyStates{SDL_GetKeyboardState(NULL)};
-  if (keyStates[SDL_SCANCODE_A]) {
-    // Move piece left
-  }
-  // Apply gravity
-  // Lock piece
-  // Spawn piece
-  // Clear rows
+
+  _tetris.update(keyStates);
 }
 
 // ===========================================
 //                  _render
 // ===========================================
-void Game::_render(void) {}
+void Game::_render(void) {
+  // Set background color
+  if (!SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 255)) {
+    SDL_Log("Failed to set background color, %s", SDL_GetError());
+    throw std::runtime_error("");
+  }
+
+  // Draw background color
+  if (!SDL_RenderClear(_renderer.get())) {
+    SDL_Log("Failed to draw background, %s", SDL_GetError());
+    throw std::runtime_error("");
+  }
+
+  // Set the line color
+  if (!SDL_SetRenderDrawColor(_renderer.get(), 255, 255, 255, 255)) {
+    SDL_Log("Failed to set line color, %s", SDL_GetError());
+    throw std::runtime_error("");
+  }
+
+  // Render the line
+  float iPix{(20.0f * (float)_GAME_WIDTH / (float)_GAME_HEIGHT) - 10.f};
+
+  if (!SDL_RenderLine(_renderer.get(), iPix, 0.0f, iPix, (float)_GAME_HEIGHT)) {
+    SDL_Log("Failed to render line, %s", SDL_GetError());
+    throw std::runtime_error("");
+  }
+}
 
 // ===========================================
 //                    run

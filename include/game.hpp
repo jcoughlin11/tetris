@@ -6,6 +6,7 @@
 
 #include "deleters.hpp"
 #include "states.hpp"
+#include "tetris.hpp"
 
 // ===========================================
 //                   Game
@@ -37,4 +38,6 @@ private:
 
   state_e _state;
   bool _done;
+
+  Tetris _tetris;
 };
